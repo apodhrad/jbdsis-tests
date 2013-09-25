@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apodhrad.jbdsis.test</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <tychoVersion>0.18.1</tychoVersion>
+    <testVersion>4.1.0-SNAPSHOT</testVersion>
+    <memoryProperties>-Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m</memoryProperties>
+    <swtbotProperties>-Dswtbot.test.properties.file=./swtbot.properties</swtbotProperties>
+    <applejdkProperties></applejdkProperties>
+    <platformSystemProperties></platformSystemProperties>
+    <eclipseHome>/home/apodhrad/Projects/jbds-installer/jbds-7.0.0.GA_jbdsis-7.0.0.Beta3/target/jbdevstudio/studio</eclipseHome>
+  </properties>
+  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>nexus-apodhrad</id>
+      <url>http://nexus-apodhrad.rhcloud.com/nexus/content/groups/public</url>
+      <snapshots>
+	<enabled>true</enabled>
+      </snapshots>
+      <releases>
+	<enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <dependencies>
+    <!-- Bot Tests -->
+    <!-- or you can install the tests into the JBDS/JBT -->
+    <dependency>
+      <groupId>org.jboss.tools.bpel</groupId>
+      <artifactId>org.jboss.tools.bpel.reddeer</artifactId>
+      <version>${testVersion}</version>
+    </dependency>
+    <!-- Notice that this one contains Eclipse-BundleShape:dir -->
+    <!-- That's why it is unpacked, so all resources in it can be used -->
+    <dependency>
+      <groupId>org.jboss.tools.bpel</groupId>
+      <artifactId>org.jboss.tools.bpel.ui.bot.test</artifactId>
+      <version>${testVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.tools.jbpm.tests</groupId>
+      <artifactId>org.jboss.tools.jbpm.ui.bot.test</artifactId>
+      <version>${testVersion}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Eclipse Surefire Plugin -->
+      <!-- Run the bot tests using osgibooter -->
+      <plugin>
+        <groupId>org.apodhrad.eclipse</groupId>
+        <artifactId>eclipse-surefire-plugin</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <executions>
+          <execution>
+	    <goals>
+	      <goal>test</goal>
+	    </goals>
+	    <configuration>
+	      <!-- JVM Arguments -->
+	      <argLine>${memoryProperties} ${applejdkProperties} ${platformSystemProperties} ${swtbotProperties} -Dusage_reporting_enabled=false -Dorg.eclipse.ui.testsDisableWorkbenchAutoSave=true</argLine>
+	      <!-- Eclipse Arguments -->
+	      <appArgLine>-eclipse.password ${project.build.directory}/password</appArgLine>
+	      <!-- All dependencies such as SWTBot or Red Deer must be installed in JBDS/JBT -->
+	      <eclipseHome>${eclipseHome}</eclipseHome>
+	      <testPlugin>org.jboss.tools.bpel.ui.bot.test</testPlugin>
+	      <testClass>org.jboss.tools.bpel.ui.bot.test.suite.AllTests</testClass>
+	      <tychoVersion>${tychoVersion}</tychoVersion>
+	      <testVersion>${testVersion}</testVersion>
+	      <product>com.jboss.jbds.product.product</product>
+	    </configuration>
+	  </execution>
+        </executions>
+      </plugin>
+      <!-- Create password file -->
+      <plugin>
+	<artifactId>maven-antrun-plugin</artifactId>
+	<version>1.7</version>
+	<executions>
+	  <execution>
+	    <id>set-soa-user</id>
+	    <phase>pre-integration-test</phase>
+	    <goals>
+	      <goal>run</goal>
+	    </goals>
+	    <configuration>
+	      <target>
+		<echo file="${project.build.directory}/password">master</echo>
+	      </target>
+	    </configuration>
+	  </execution>
+	</executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <!-- Copied from JBoss Tools parent pom -->
+    <profile>
+      <!-- JBIDE-12455 , necessary because of XulRunner doesn't support 64bits OSX -->
+      <id>applejdk</id>
+      <activation>
+	<property>
+	  <name>java.vendor.url</name>
+	  <value>http://www.apple.com/</value>
+	</property>
+      </activation>
+      <properties>
+      <applejdkProperties> -d32 -Dosgi.arch=x86 </applejdkProperties></properties>
+    </profile>
+    <profile>
+      <!-- Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=388084 -->
+      <id>osx</id>
+      <activation>
+	<os><family>mac</family></os>
+      </activation>
+      <properties>
+	<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+	<platformSystemProperties> -XstartOnFirstThread </platformSystemProperties>
+      </properties>
+    </profile>
+  </profiles>
+
+</project>

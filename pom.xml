@@ -30,28 +30,6 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <dependencies>
-    <!-- Bot Tests -->
-    <!-- or you can install the tests into the JBDS/JBT -->
-    <dependency>
-      <groupId>org.jboss.tools.bpel</groupId>
-      <artifactId>org.jboss.tools.bpel.reddeer</artifactId>
-      <version>${testVersion}</version>
-    </dependency>
-    <!-- Notice that this one contains Eclipse-BundleShape:dir -->
-    <!-- That's why it is unpacked, so all resources in it can be used -->
-    <dependency>
-      <groupId>org.jboss.tools.bpel</groupId>
-      <artifactId>org.jboss.tools.bpel.ui.bot.test</artifactId>
-      <version>${testVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.tools.jbpm.tests</groupId>
-      <artifactId>org.jboss.tools.jbpm.ui.bot.test</artifactId>
-      <version>${testVersion}</version>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <!-- Eclipse Surefire Plugin -->
@@ -72,8 +50,8 @@
 	      <appArgLine>-eclipse.password ${project.build.directory}/password</appArgLine>
 	      <!-- All dependencies such as SWTBot or Red Deer must be installed in JBDS/JBT -->
 	      <eclipseHome>${eclipseHome}</eclipseHome>
-	      <testPlugin>org.jboss.tools.bpel.ui.bot.test</testPlugin>
-	      <testClass>org.jboss.tools.bpel.ui.bot.test.suite.AllTests</testClass>
+	      <testPlugin>*.ui.bot.test</testPlugin>
+	      <testClass>**/AllTests</testClass>
 	      <tychoVersion>${tychoVersion}</tychoVersion>
 	      <testVersion>${testVersion}</testVersion>
 	      <product>com.jboss.jbds.product.product</product>
@@ -102,6 +80,12 @@
       </plugin>
     </plugins>
   </build>
+
+  <modules>
+    <module>bpel</module>
+    <module>esb</module>
+    <module>jbpm3</module>
+  </modules>
 
   <profiles>
     <!-- Copied from JBoss Tools parent pom -->

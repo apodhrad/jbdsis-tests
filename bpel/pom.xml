@@ -43,7 +43,6 @@
 	    <configuration>
 	      <eclipseHome>${eclipseHome}</eclipseHome>
 	      <testPlugin>org.jboss.tools.bpel.ui.bot.test</testPlugin>
-	      <testClass>org.jboss.tools.bpel.ui.bot.test.suite.AllTests</testClass>
 	    </configuration>
 	  </execution>
         </executions>

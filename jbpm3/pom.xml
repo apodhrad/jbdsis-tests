@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>org.apodhrad.jbdsis.test</groupId>
-  <artifactId>esb</artifactId>
+  <artifactId>jbpm3</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -18,13 +18,8 @@
   
   <dependencies>
     <dependency>
-      <groupId>org.jboss.tools.tests.plugins</groupId>
-      <artifactId>org.jboss.tools.ui.bot.ext</artifactId>
-      <version>${testVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.tools.esb.tests</groupId>
-      <artifactId>org.jboss.tools.esb.ui.bot.test</artifactId>
+      <groupId>org.jboss.tools.jbpm.tests</groupId>
+      <artifactId>org.jboss.tools.jbpm.ui.bot.test</artifactId>
       <version>${testVersion}</version>
     </dependency>
   </dependencies>
@@ -42,7 +37,7 @@
 	    </goals>
 	    <configuration>
 	      <eclipseHome>${eclipseHome}</eclipseHome>
-	      <testPlugin>org.jboss.tools.esb.ui.bot.test</testPlugin>
+	      <testPlugin>org.jboss.tools.jbpm.ui.bot.test</testPlugin>
 	    </configuration>
 	  </execution>
         </executions>

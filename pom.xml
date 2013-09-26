@@ -47,7 +47,7 @@
 	      <!-- JVM Arguments -->
 	      <argLine>${memoryProperties} ${applejdkProperties} ${platformSystemProperties} ${swtbotProperties} -Dusage_reporting_enabled=false -Dorg.eclipse.ui.testsDisableWorkbenchAutoSave=true</argLine>
 	      <!-- Eclipse Arguments -->
-	      <appArgLine>-eclipse.password ${project.build.directory}/password</appArgLine>
+	      <appArgLine>-eclipse.password ${project.build.directory}/password -pluginCustomization config/plugin_customization.ini</appArgLine>
 	      <!-- All dependencies such as SWTBot or Red Deer must be installed in JBDS/JBT -->
 	      <eclipseHome>${eclipseHome}</eclipseHome>
 	      <testPlugin>*.ui.bot.test</testPlugin>

@@ -8,19 +8,28 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>org.apodhrad.jbdsis.test</groupId>
-  <artifactId>esb</artifactId>
+  <artifactId>switchyard</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+
+  <properties>
+    <eclipseHome>/home/apodhrad/Projects/jbds-installer/jbds-7.0.0.GA_jbdsis-7.0.0.Beta3/target/jbdevstudio/studio</eclipseHome>
+  </properties>
   
   <dependencies>
     <dependency>
-      <groupId>org.jboss.tools.tests.plugins</groupId>
-      <artifactId>org.jboss.tools.ui.bot.ext</artifactId>
+      <groupId>org.jboss.tools.bpmn2.tests</groupId>
+      <artifactId>org.jboss.tools.bpmn2.itests</artifactId>
       <version>${testVersion}</version>
     </dependency>
     <dependency>
-      <groupId>org.jboss.tools.esb.tests</groupId>
-      <artifactId>org.jboss.tools.esb.ui.bot.test</artifactId>
+      <groupId>org.jboss.tools.switchyard</groupId>
+      <artifactId>org.jboss.tools.switchyard.reddeer</artifactId>
+      <version>${testVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.tools.switchyard</groupId>
+      <artifactId>org.jboss.tools.switchyard.ui.bot.test</artifactId>
       <version>${testVersion}</version>
     </dependency>
   </dependencies>
@@ -37,7 +46,7 @@
 	      <goal>test</goal>
 	    </goals>
 	    <configuration>
-	      <testPlugin>org.jboss.tools.esb.ui.bot.test</testPlugin>
+	      <testPlugin>org.jboss.tools.switchyard.ui.bot.test</testPlugin>
 	    </configuration>
 	  </execution>
         </executions>

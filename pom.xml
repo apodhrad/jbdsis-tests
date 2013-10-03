@@ -87,6 +87,7 @@
     <module>bpel</module>
     <module>esb</module>
     <module>jbpm3</module>
+    <module>modeshape</module>
   </modules>
 
   <profiles>

@@ -12,10 +12,6 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <properties>
-    <eclipseHome>/home/apodhrad/Projects/jbds-installer/jbds-7.0.0.GA_jbdsis-7.0.0.Beta3/target/jbdevstudio/studio</eclipseHome>
-  </properties>
-  
   <dependencies>
     <dependency>
       <groupId>org.jboss.tools.bpmn2.tests</groupId>
